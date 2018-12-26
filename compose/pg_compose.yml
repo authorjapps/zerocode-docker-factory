@@ -11,7 +11,7 @@ services:
     environment:
       POSTGRES_PASSWORD: example
     ports:
-      - 31436:5432
+      - 35432:5432
 
   adminer:
     image: adminer
