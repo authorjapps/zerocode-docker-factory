@@ -8,12 +8,6 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
-    # -----------------------------------------------------------------------------
-    # For connections _internal_ to the docker network, such as from other services
-    # and components, use kafka:29092.
-    #
-    # See https://rmoff.net/2018/08/02/kafka-listeners-explained/ for details
-    # -----------------------------------------------------------------------------
     image: confluentinc/cp-kafka:5.1.0
     depends_on:
       - zookeeper
@@ -53,3 +47,15 @@ services:
             KAFKA_REST_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       ports:
         - "8082:8082"
+
+  ksql-server:
+      image: "confluentinc/cp-ksql-server:5.1.0"
+      depends_on:
+        - kafka
+        - schema-registry
+      environment:
+        KSQL_BOOTSTRAP_SERVERS: kafka:29092
+        KSQL_LISTENERS: http://0.0.0.0:8088
+        KSQL_KSQL_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      ports:
+        - "8088:8088"
