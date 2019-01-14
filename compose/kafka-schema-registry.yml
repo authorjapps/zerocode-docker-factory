@@ -59,3 +59,8 @@ services:
         KSQL_KSQL_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       ports:
         - "8088:8088"
+
+  ksql-cli:
+      image: confluentinc/cp-ksql-cli:5.1.0
+      entrypoint: /bin/sh
+      tty: true
